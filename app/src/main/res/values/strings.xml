@@ -6,4 +6,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_call">Contact</string>
+    <string name="contact_item_phone">Phone</string>
+    <string name="contact_item_skype">Skype</string>
+    <string name="contact_item_viber">Viber</string>
+    <string name="contact_item_email">Email</string>
 </resources>

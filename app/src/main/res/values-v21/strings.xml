@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_call">Contact</string>
+    <string name="contact_item_skype">Skype</string>
+    <string name="contact_item_viber">Viber</string>
+    <string name="contact_item_email">Email</string>
 </resources>

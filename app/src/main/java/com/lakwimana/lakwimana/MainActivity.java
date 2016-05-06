@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.PopupMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -105,9 +106,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
+        View menuItemView = findViewById(R.id.action_call2); // SAME ID AS MENU ID
+        PopupMenu popupMenu = new PopupMenu(this, menuItemView);
+        popupMenu.inflate(R.menu.menu_contact);
+        // ...
+        popupMenu.show();
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
