@@ -1,7 +1,5 @@
 package com.lakwimana.lakwimana;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -63,7 +60,9 @@ public class MainActivity extends AppCompatActivity
         WebView myWebView = (WebView) findViewById(R.id.webView);
         myWebView.setWebViewClient(new WebViewClient());
         view.loadUrl (url);    // URL that is currently open applications terload
+
     }
+
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-        View menuItemView = findViewById(R.id.action_call2); // SAME ID AS MENU ID
+        View menuItemView = findViewById(R.id.action_call); // SAME ID AS MENU ID
         PopupMenu popupMenu = new PopupMenu(this, menuItemView);
         popupMenu.inflate(R.menu.menu_contact);
         // ...

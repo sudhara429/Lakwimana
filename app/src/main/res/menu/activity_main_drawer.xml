@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_cart"
             android:title="Shopping Cart" />
         <item
             android:id="@+id/nav_new"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_new"
             android:title="New Products" />
         <item
             android:id="@+id/nav_special"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_special"
             android:title="Special Products" />
         <item
             android:id="@+id/nav_checkout"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_menu_gift"
             android:title="Checkout" />
     </group>
 
@@ -24,11 +24,11 @@
         <menu>
             <item
                 android:id="@+id/nav_lang"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_menu_lang"
                 android:title="Change Language" />
             <item
                 android:id="@+id/nav_currency"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_menu_currency"
                 android:title="Change Currency" />
         </menu>
     </item>

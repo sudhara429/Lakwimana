@@ -8,9 +8,9 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
         <item
-            android:id="@+id/action_call2"
+            android:id="@+id/action_call"
             android:orderInCategory="100"
-            android:icon="@android:drawable/ic_menu_call"
+            android:icon="@drawable/ic_menu_call"
             android:title="@string/action_call"
             app:showAsAction="always" />
         <item
