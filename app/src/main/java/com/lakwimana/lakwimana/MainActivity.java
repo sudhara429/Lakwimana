@@ -1,13 +1,18 @@
 package com.lakwimana.lakwimana;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,10 +25,14 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+private BroadcastReceiver mRegistrationBroadcastReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +70,56 @@ public class MainActivity extends AppCompatActivity
         myWebView.setWebViewClient(new WebViewClient());
         view.loadUrl (url);    // URL that is currently open applications terload
 
+
+        mRegistrationBroadcastReceiver= new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //check type of intent filter
+            if(intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)){
+                String token =intent.getStringExtra("token");
+                Toast.makeText(getApplicationContext(),"GCM token:"+token,Toast.LENGTH_LONG).show();
+            }else if (intent.getAction().equals(GCMRegistrationIntentService.REGISTRATION_ERROR)){
+                Toast.makeText(getApplicationContext(),"GCM token Registration error:",Toast.LENGTH_LONG).show();
+            }else{
+
+            }
+            }
+        };
+        //check google play status
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+        if(ConnectionResult.SUCCESS!=resultCode){
+            //check type of error
+            if(GooglePlayServicesUtil.isUserRecoverableError(resultCode)){
+                Toast.makeText(getApplicationContext(),"Google Play service not Installed",Toast.LENGTH_LONG).show();
+                //so nortification
+                GooglePlayServicesUtil.showErrorNotification(resultCode,getApplicationContext());
+            }else{
+
+                Toast.makeText(getApplicationContext(),"this device not supported play service",Toast.LENGTH_LONG).show();
+            }
+        }else{
+            //start service
+            Intent intent=new Intent(this,GCMRegistrationIntentService.class);
+            startService(intent);
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.w("MainActivity","onResume");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(GCMRegistrationIntentService.REGISTRATION_SUCCESS));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(GCMRegistrationIntentService.REGISTRATION_ERROR));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.w("MainActivity","onPause");
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
     }
 
     private class MyWebViewClient extends WebViewClient {

@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "476891792344",
+    "project_id": "lakwimana-130f9"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476891792344:android:5fbd794b86345979",
+        "android_client_info": {
+          "package_name": "com.lakwimana.lakwimana"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXmXCNZly7X18kT-_VT5syvKtQZ3rapqs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
