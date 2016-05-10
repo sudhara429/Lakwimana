@@ -19,6 +19,114 @@
             android:icon="@drawable/ic_menu_gift"
             android:title="Checkout" />
     </group>
+    <group android:checkableBehavior="single">
+        <item android:title="All Categories">
+            <menu>
+        <item
+            android:id="@+id/nav_cat_23"
+            android:icon="@drawable/ic_cat_23"
+            android:title="Flower Shop" />
+        <item
+            android:id="@+id/nav_cat_43"
+            android:icon="@drawable/ic_cat_43"
+            android:title="Cakes" />
+        <item
+            android:id="@+id/nav_cat_110"
+            android:icon="@drawable/ic_cat_110"
+            android:title="Food and Restaurants" />
+        <item
+            android:id="@+id/nav_cat_45"
+            android:icon="@drawable/ic_cat_45"
+            android:title="Chocolates" />
+        <item
+            android:id="@+id/nav_cat_25"
+            android:icon="@drawable/ic_cat_25"
+            android:title="Electronics" />
+        <item
+            android:id="@+id/nav_cat_92"
+            android:icon="@drawable/ic_cat_92"
+            android:title="Kids Corner" />
+        <item
+            android:id="@+id/nav_cat_115"
+            android:icon="@drawable/ic_cat_115"
+            android:title="Personalised Gift" />
+        <item
+            android:id="@+id/nav_cat_76"
+            android:icon="@drawable/ic_cat_76"
+            android:title="Gift Vouchers" />
+        <item
+            android:id="@+id/nav_cat_67"
+            android:icon="@drawable/ic_cat_67"
+            android:title="Teddy Bears" />
+        <item
+            android:id="@+id/nav_cat_79"
+            android:icon="@drawable/ic_cat_79"
+            android:title="Clothes" />
+        <item
+            android:id="@+id/nav_cat_256"
+            android:icon="@drawable/ic_cat_256"
+            android:title="Fruits and Vegitables" />
+        <item
+            android:id="@+id/nav_cat_125"
+            android:icon="@drawable/ic_cat_125"
+            android:title="Wrist Watches" />
+        <item
+            android:id="@+id/nav_cat_284"
+            android:icon="@drawable/ic_cat_284"
+            android:title="Baby Products" />
+        <item
+            android:id="@+id/nav_cat_93"
+            android:icon="@drawable/ic_cat_93"
+            android:title="Book Shop" />
+        <item
+            android:id="@+id/nav_cat_286"
+            android:icon="@drawable/ic_cat_286"
+            android:title="Fashion Jewelery" />
+        <item
+            android:id="@+id/nav_cat_32"
+            android:icon="@drawable/ic_cat_32"
+            android:title="Hampers" />
+        <item
+            android:id="@+id/nav_cat_184"
+            android:icon="@drawable/ic_cat_184"
+            android:title="Jewelery" />
+        <item
+            android:id="@+id/nav_cat_70"
+            android:icon="@drawable/ic_cat_70"
+            android:title="Reload" />
+        <item
+            android:id="@+id/nav_cat_260"
+            android:icon="@drawable/ic_cat_260"
+            android:title="Men and Women's" />
+        <item
+            android:id="@+id/nav_cat_279"
+            android:icon="@drawable/ic_cat_279"
+            android:title="Bicycles" />
+        <item
+            android:id="@+id/nav_cat_30"
+            android:icon="@drawable/ic_cat_30"
+            android:title="Grocery Items" />
+        <item
+            android:id="@+id/nav_cat_91"
+            android:icon="@drawable/ic_cat_91"
+            android:title="Kiri Pani" />
+        <item
+            android:id="@+id/nav_cat_202"
+            android:icon="@drawable/ic_cat_202"
+            android:title="Cosmetics" />
+        <item
+            android:id="@+id/nav_cat_289"
+            android:icon="@drawable/ic_cat_289"
+            android:title="Pirikara" />
+        <item
+            android:id="@+id/nav_cat_295"
+            android:icon="@drawable/ic_cat_295"
+            android:title="Free Giveaways" />
+
+</menu>
+
+</item>
+    </group>
 
     <item android:title="Settings">
         <menu>
