@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
@@ -32,7 +34,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,47 +62,46 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
         navigationView.setNavigationItemSelectedListener(this);
 
         //for webview loading
-        String url = "http://lakwimana.com/app.php" ; // Defining URL
-        WebView view = (WebView) this .findViewById (R.id.webView);   // synchronization object based on the id
+        String url = "http://lakwimana.com/app.php"; // Defining URL
+        WebView view = (WebView) this.findViewById(R.id.webView);   // synchronization object based on the id
         WebSettings webSettings = view.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
 
-
         WebView myWebView = (WebView) findViewById(R.id.webView);
         myWebView.setWebViewClient(new WebViewClient());
-        view.loadUrl (url);    // URL that is currently open applications terload
+        view.loadUrl(url);    // URL that is currently open applications terload
 
 
-        mRegistrationBroadcastReceiver= new BroadcastReceiver() {
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 //check type of intent filter
-            if(intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)){
-                String token =intent.getStringExtra("token");
-                Toast.makeText(getApplicationContext(),"GCM token:"+token,Toast.LENGTH_LONG).show();
-            }else if (intent.getAction().equals(GCMRegistrationIntentService.REGISTRATION_ERROR)){
-                Toast.makeText(getApplicationContext(),"GCM token Registration error:",Toast.LENGTH_LONG).show();
-            }else{
+                if (intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)) {
+                    String token = intent.getStringExtra("token");
+                  //  Toast.makeText(getApplicationContext(), "GCM token:" + token, Toast.LENGTH_LONG).show();
+                } else if (intent.getAction().equals(GCMRegistrationIntentService.REGISTRATION_ERROR)) {
+                    Toast.makeText(getApplicationContext(), "GCM token Registration error:", Toast.LENGTH_LONG).show();
+                } else {
 
-            }
+                }
             }
         };
         //check google play status
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-        if(ConnectionResult.SUCCESS!=resultCode){
+        if (ConnectionResult.SUCCESS != resultCode) {
             //check type of error
-            if(GooglePlayServicesUtil.isUserRecoverableError(resultCode)){
-                Toast.makeText(getApplicationContext(),"Google Play service not Installed",Toast.LENGTH_LONG).show();
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                Toast.makeText(getApplicationContext(), "Google Play service not Installed", Toast.LENGTH_LONG).show();
                 //so nortification
-                GooglePlayServicesUtil.showErrorNotification(resultCode,getApplicationContext());
-            }else{
+                GooglePlayServicesUtil.showErrorNotification(resultCode, getApplicationContext());
+            } else {
 
-                Toast.makeText(getApplicationContext(),"this device not supported play service",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "this device not supported play service", Toast.LENGTH_LONG).show();
             }
-        }else{
+        } else {
             //start service
-            Intent intent=new Intent(this,GCMRegistrationIntentService.class);
+            Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
 
         }
@@ -108,7 +110,7 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
     @Override
     protected void onResume() {
         super.onResume();
-        Log.w("MainActivity","onResume");
+        Log.w("MainActivity", "onResume");
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(GCMRegistrationIntentService.REGISTRATION_SUCCESS));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
@@ -118,7 +120,7 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
     @Override
     protected void onPause() {
         super.onPause();
-        Log.w("MainActivity","onPause");
+        Log.w("MainActivity", "onPause");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
     }
 
@@ -159,19 +161,67 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        WebView view = (WebView) this.findViewById(R.id.webView);
+        final WebView view2 = view;
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_call) {
+            View menuItemView = findViewById(R.id.action_call); // SAME ID AS MENU ID
+            PopupMenu popupMenu = new PopupMenu(this, menuItemView);
+            popupMenu.inflate(R.menu.menu_contact);
+            // ...
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    switch (item.getItemId()) {
+                        case R.id.contact_item_skype: //Domingo
+
+                            Intent sky = new Intent("android.intent.action.VIEW");
+                            sky.setData(Uri.parse("skype:lakwimana.com"));
+                            startActivity(sky);
+                            break;
+                        case R.id.contact_item_viber: //Segunda
+                            String sphone = "+94778892006";
+                            Uri uri = Uri.parse("tel:" + Uri.encode(sphone));
+                            Intent intent = new Intent("android.intent.action.VIEW");
+                            intent.setClassName("com.viber.voip", "com.viber.voip.WelcomeActivity");
+                            intent.setData(uri);
+                            startActivity(intent);
+                            break;
+                        case R.id.contact_item_phone: //Terça
+                            Intent dial = new Intent();
+                            dial.setAction("android.intent.action.DIAL");
+                            dial.setData(Uri.parse("tel:+94778892006"));
+                            startActivity(dial);
+
+                            break;
+                        case R.id.contact_item_email: //Terça
+                            // ACTION_SENDTO filters for email apps (discard bluetooth and others)
+                            String uriText =
+                                    "mailto:info@lakwimana.com" +
+                                            "?subject=" + Uri.encode("Contact") +
+                                            "&body=" + Uri.encode("");
+
+                            Uri mail = Uri.parse(uriText);
+
+                            Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+                            sendIntent.setData(mail);
+                            startActivity(Intent.createChooser(sendIntent, "Send email"));
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    return true;
+                }
+            });
+            popupMenu.show();
             return true;
         }
-        View menuItemView = findViewById(R.id.action_call); // SAME ID AS MENU ID
-        PopupMenu popupMenu = new PopupMenu(this, menuItemView);
-        popupMenu.inflate(R.menu.menu_contact);
-        // ...
-        popupMenu.show();
         return super.onOptionsItemSelected(item);
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -185,11 +235,9 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
             // Handle the cart action
             view.loadUrl("http://lakwimana.com/shopping_cart.php");
         } else if (id == R.id.nav_new) {
-
+            view.loadUrl("http://lakwimana.com/products_new.php");
         } else if (id == R.id.nav_special) {
-
-        } else if (id == R.id.nav_checkout) {
-
+            view.loadUrl("http://lakwimana.com/specials.php");
         } else if (id == R.id.nav_lang) {
 
             CharSequence colors[] = new CharSequence[] {"English", "Sinhala"};
@@ -204,11 +252,11 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
                     switch (which) {
                         case 1:
                             // int which = -2
-                            view2.loadUrl("http://www.lakwimana.com/index.php?language=si");
+                            view2.loadUrl("http://lakwimana.com/index.php?language=si");
                             dialog.dismiss();
                             break;
                         case 0:
-                            view2.loadUrl("http://www.lakwimana.com/index.php?language=en");
+                            view2.loadUrl("http://lakwimana.com/index.php?language=en");
                             // int which = -3
                             dialog.dismiss();
                             break;
@@ -216,6 +264,8 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
                     // the user clicked on colors[which]
                 }
             });
+
+
             builder.show();
         } else if (id == R.id.nav_currency) {
 
@@ -245,9 +295,95 @@ private BroadcastReceiver mRegistrationBroadcastReceiver;
             });
             builder.show();
         }
+            //start for categories
+        switch (id) {
+            case R.id.nav_cat_23: //
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=23");
+                break;
+            case R.id.nav_cat_25: //Segunda
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=25");
+                break;
+            case R.id.nav_cat_30: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=30");
+                break;
+            case R.id.nav_cat_32: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=32");
+                break;
+            case R.id.nav_cat_43: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=43");
+                break;
+            case R.id.nav_cat_45: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=45");
+                break;
+            case R.id.nav_cat_51: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=51");
+                break;
+            case R.id.nav_cat_67: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=67");
+                break;
+            case R.id.nav_cat_70: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=70");
+                break;
+            case R.id.nav_cat_76: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=76");
+                break;
+            case R.id.nav_cat_79: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=79");
+                break;
+            case R.id.nav_cat_91: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=91");
+                break;
+            case R.id.nav_cat_92: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=92");
+                break;
+            case R.id.nav_cat_93: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=93");
+                break;
+            case R.id.nav_cat_110: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=110");
+                break;
+            case R.id.nav_cat_115: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=115");
+                break;
+            case R.id.nav_cat_125: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=125");
+                break;
+            case R.id.nav_cat_184: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=184");
+                break;
+            case R.id.nav_cat_202: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=202");
+                break;
+            case R.id.nav_cat_256: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=256");
+                break;
+            case R.id.nav_cat_260: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=260");
+                break;
+            case R.id.nav_cat_279: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=279");
+                break;
+            case R.id.nav_cat_284: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=284");
+                break;
+            case R.id.nav_cat_286: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=286");
+                break;
+            case R.id.nav_cat_289: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=289");
+                break;
+            case R.id.nav_cat_295: //Terça
+                view2.loadUrl("http://lakwimana.com/index.php?cPath=295");
+                break;
 
+            default:
+                break;
+        }
+        //end for categories
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    ///
 }
