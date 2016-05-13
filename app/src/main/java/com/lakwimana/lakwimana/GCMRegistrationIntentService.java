@@ -10,6 +10,11 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+import com.lakwimana.lakwimana.backend.registration.Registration;
 
 import java.io.IOException;
 
@@ -75,7 +80,11 @@ public class GCMRegistrationIntentService extends IntentService {
         // Add custom implementation, as needed.
     }*/
     private void sendRegistrationToServer(String token) throws IOException {
-
+        Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
+                new AndroidJsonFactory(), null)
+                .setRootUrl("https://lakwimana-app.appspot.com/_ah/api/");
+        Registration regService = builder.build();
+        regService.register(token).execute();
     }
     /**
      * Subscribe to any GCM topics of interest, as defined by the TOPICS constant.
