@@ -10,6 +10,8 @@ android {
         targetSdkVersion 23
         versionCode 2
         versionName "1.1"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -30,5 +32,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile project(path: ':backend', configuration: 'android-endpoints')
+    compile 'com.android.support:multidex:1.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
