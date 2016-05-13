@@ -33,8 +33,10 @@ public class GCMPushReceiverService extends GcmListenerService {
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         //build nortification
         NotificationCompat.Builder noBuilder =new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_menu_gift)
                 .setContentText("My message abcd")
+                .setContentTitle("Lakwimana")
+
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lakwimana.lakwimana">
+    package="com.lakwimana.lakwimana"
+    android:versionCode="2"
+    android:versionName="1.1">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <permission android:name="com.lakwimana.lakwimana.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.lakwimana.lakwimana.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
